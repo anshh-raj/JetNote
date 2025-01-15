@@ -16,6 +16,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,7 +39,7 @@ fun EditNoteScreen(
     navController: NavController,
     noteID: String?
 ){
-    val noteList = noteViewModel.getAllNotes().filter {
+    val noteList = noteViewModel.noteList.collectAsState().value.filter {
         it.id == UUID.fromString(noteID)
     }
     var title by remember {
@@ -112,9 +113,9 @@ fun EditNoteScreen(
                     text = "Save",
                     onClick = {
                         if(title.isNotEmpty() && description.isNotEmpty()){
-                            noteViewModel.editNote(
-                                noteList[0],
-                                Note(
+                            noteViewModel.updateNote(
+                                oldNote = noteList[0],
+                                newNote = Note(
                                     title = title,
                                     description = description
                                 )

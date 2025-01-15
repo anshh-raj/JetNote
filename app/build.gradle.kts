@@ -2,6 +2,13 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+
+    //ksp
+    id("com.google.devtools.ksp")
+
+    //hilt
+    id("com.google.dagger.hilt.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -33,6 +40,7 @@ android {
 
         //for using LocalDateTime
         isCoreLibraryDesugaringEnabled = true
+
     }
     kotlinOptions {
         jvmTarget = "11"
@@ -62,17 +70,32 @@ dependencies {
 
     //for using LocalDateTime
     coreLibraryDesugaring(libs.desugar.jdk.libs)
-
-    val lifecycle_version = "2.8.7"
+    
 
     // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     // ViewModel utilities for Compose
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     //Navigation
 
+    
+    implementation(libs.androidx.navigation.compose)
 
-    val nav_version = "2.8.5"
-    implementation("androidx.navigation:navigation-compose:$nav_version")
+    //hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+
+    //room
+
+    implementation(libs.androidx.room.runtime)
+
+    ksp(libs.androidx.room.compiler)
+
+    implementation(libs.androidx.room.ktx)
+
+    //coroutines
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.play.services)
 }

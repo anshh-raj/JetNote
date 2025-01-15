@@ -24,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,7 +36,7 @@ import androidx.navigation.NavController
 import com.example.jetnote.R
 import com.example.jetnote.model.Note
 import com.example.jetnote.navigation.NotesScreens
-import java.time.format.DateTimeFormatter
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -43,7 +44,7 @@ fun MainScreen(
     navController: NavController,
     noteViewModel: NoteViewModel = viewModel(),
 ){
-    val notes = noteViewModel.getAllNotes()
+    val notes = noteViewModel.noteList.collectAsState().value
     val context = LocalContext.current
 
     Scaffold(
@@ -130,11 +131,6 @@ fun NoteRow(
                 Text(
                     note.description,
                     style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(vertical = 4.dp)
-                )
-                Text(
-                    note.entryDate.format(DateTimeFormatter.ofPattern("EEE, d MMM")),
-                    style = MaterialTheme.typography.labelSmall,
                     modifier = Modifier.padding(vertical = 4.dp)
                 )
             }

@@ -8,13 +8,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.jetnote.navigation.NoteNavigation
 import com.example.jetnote.ui.theme.JetNoteTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             MyApp {
+//                val noteViewModel = viewModel<NoteViewModel>() // this also works
 //                val noteViewModel: NoteViewModel by viewModels()
                 NoteNavigation()
             }
