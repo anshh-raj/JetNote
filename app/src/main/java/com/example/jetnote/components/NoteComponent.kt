@@ -4,12 +4,12 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 
@@ -18,7 +18,7 @@ fun NoteInputText(
     modifier: Modifier = Modifier,
     text: String,
     label: String,
-    maxLine: Int = 1,
+//    maxLine: Int = 1,
     onTextChange: (String) -> Unit = {},
     onImeAction: () -> Unit = {}
 ){
@@ -29,10 +29,10 @@ fun NoteInputText(
             onTextChange(it)
         },
         colors = TextFieldDefaults.colors(
-            focusedContainerColor = Color.Transparent,
-            unfocusedContainerColor = Color.Transparent
+            focusedContainerColor = MaterialTheme.colorScheme.surfaceContainer,
+            unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainer
         ),
-        maxLines = maxLine,
+//        maxLines = maxLine,
         label = {
             Text(label)
         },
